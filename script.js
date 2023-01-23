@@ -121,7 +121,6 @@ function onMouseDown(event) {
             y:event.y - selectedPiece.y
         }
     }
-    console.log(correctCount);
 }
 
 function onMouseMove(event) {
@@ -134,7 +133,6 @@ function onMouseMove(event) {
         selectedPiece.x = event.x - selectedPiece.offset.x;
         selectedPiece.y = event.y - selectedPiece.offset.y;
     }
-    // console.log(selectedPiece);
 }
 
 function onMouseUp() {
@@ -155,7 +153,6 @@ function onMouseUp() {
             }
     }
     selectedPiece = null;
-    console.log(correctCount);
 
 }
 
