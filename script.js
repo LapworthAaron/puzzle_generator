@@ -5,15 +5,27 @@ let board = [];
 let pzlSize = {x:0,y:0,width:768,height:768,rows:4,columns:4};
 var puzzleImg = new Image();
 var selectedPiece = null;
+var pzlPosition = {x:100,y:100};
 var correctCount = 0;
-// puzzleImg.src = "./images/test.jpg";
-// puzzleImg.src = "./images/paw_patrol_full.jpg";
+var puzzleImages = [
+    "./images/pp1.jpg",
+    "./images/pp2.jpg",
+    "./images/pp3.jpg",
+    "./images/pp4.jpg",
+    "./images/sky.jpg",
+    "./images/chase.jpg",
+    "./images/zuma.jpg",
+    "./images/everest.jpg",
+    "./images/marshall.jpg"
+]
 
-//TODO: function to pick random image each load
-// function randomImg() {
-//     puzzleImg.src = "./images/paw_patrol_full.jpg";
-//     return;
-// }
+// TODO: function to pick random image each load
+function randomImg() {
+    var randIndex = Math.floor(Math.random() * (puzzleImages.length));
+    console.log(randIndex);
+    puzzleImg.src = puzzleImages[randIndex];
+    return;
+}
 
 class Piece{
     constructor(rowIndex, colIndex) {
@@ -49,29 +61,35 @@ class Piece{
 
 window.onload = function() {    
     canvas = document.getElementById("puzzleCanvas");
-    canvas.width = pzlSize.width + 432;
-    canvas.height = pzlSize.height + 432;
+    canvas.width = pzlSize.width + 200;
+    canvas.height = pzlSize.height + 200;
     context = canvas.getContext("2d");
     addEventListeners();
     correctCount = 0;
 
-    puzzleImg.src = "./images/paw_patrol_full.jpg";
-    pzlSize.x = canvas.width/2 - pzlSize.width/2;
-    pzlSize.y = canvas.width/2 - pzlSize.height/2;
+    randomImg();
+    pzlSize.x = pzlPosition.x;
+    pzlSize.y = pzlPosition.y;
+    // pzlSize.x = canvas.width/4 - pzlSize.width/4;
+    // pzlSize.y = canvas.width/4 - pzlSize.height/4;
     initPieces();
     updateCanvas();
     randomPieces();
+
+    $('#genBtn').on('click',runGame);
     return;
 }
 
-$('#genBtn').on('click',runGame());
+
 
 function runGame() {
     correctCount = 0;
 
-    puzzleImg.src = "./images/paw_patrol_full.jpg";
-    pzlSize.x = canvas.width/2 - pzlSize.width/2;
-    pzlSize.y = canvas.height/2 - pzlSize.height/2;
+    randomImg();
+    pzlSize.x = pzlPosition.x;
+    pzlSize.y = pzlPosition.y;
+    // pzlSize.x = canvas.width/4 - pzlSize.width/4;
+    // pzlSize.y = canvas.height/4 - pzlSize.height/4;
     initPieces();
     updateCanvas();
     randomPieces();
@@ -170,8 +188,7 @@ function updateCanvas() {
     context.clearRect(0,0,canvas.width,canvas.height);
     // context.drawImage(puzzleImg, pzlSize.x, pzlSize.y, pzlSize.width, pzlSize.height);
 
-    context.strokeRect(canvas.width/2 - pzlSize.width/2,
-                canvas.height/2 - pzlSize.height/2,
+    context.strokeRect(pzlPosition.x, pzlPosition.y,
                 pzlSize.width, pzlSize.height);
     
 
