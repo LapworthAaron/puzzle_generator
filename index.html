@@ -15,13 +15,18 @@
     </head>
 
     <body>
+        <canvas id="puzzleCanvas">
+        </canvas>
         <section>
             <button id = "seeBtn">See Puzzle image</button>
             <button id = "genBtn">Generate puzzle</button>
+            <div>
+                <h2 id = "score">Correct: </h2>
+            </div>
         </section>
-        <canvas id="puzzleCanvas">
-
-        </canvas>
+        <div id="dialog" title="Full picture">
+            <img src="" alt="puzzle finished picture" id = "pzlPic" width="512px">
+        </div>
     </body>
 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

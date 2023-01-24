@@ -19,7 +19,9 @@ var puzzleImages = [
     "./images/marshall.jpg"
 ]
 
-// TODO: function to pick random image each load
+// TODO: need to work out how to place canvas anywhere I want and mouse coordinates update with it
+
+
 function randomImg() {
     var randIndex = Math.floor(Math.random() * (puzzleImages.length));
     console.log(randIndex);
@@ -60,6 +62,7 @@ class Piece{
 }
 
 window.onload = function() {    
+    $( "#dialog" ).hide();
     canvas = document.getElementById("puzzleCanvas");
     canvas.width = pzlSize.width + 200;
     canvas.height = pzlSize.height + 200;
@@ -70,13 +73,18 @@ window.onload = function() {
     randomImg();
     pzlSize.x = pzlPosition.x;
     pzlSize.y = pzlPosition.y;
-    // pzlSize.x = canvas.width/4 - pzlSize.width/4;
-    // pzlSize.y = canvas.width/4 - pzlSize.height/4;
     initPieces();
     updateCanvas();
     randomPieces();
 
     $('#genBtn').on('click',runGame);
+    // 
+    $('#seeBtn').on('click', function(){
+        $( "#pzlPic" ).attr("src",puzzleImg.src);
+        $( function() {
+            $( "#dialog" ).dialog({width: 545, modal: true, });
+          } );
+    });
     return;
 }
 
@@ -88,8 +96,6 @@ function runGame() {
     randomImg();
     pzlSize.x = pzlPosition.x;
     pzlSize.y = pzlPosition.y;
-    // pzlSize.x = canvas.width/4 - pzlSize.width/4;
-    // pzlSize.y = canvas.height/4 - pzlSize.height/4;
     initPieces();
     updateCanvas();
     randomPieces();
@@ -131,6 +137,7 @@ function onMouseDown(event) {
                     if (board[i].correct == 1) {
                         board[i].correct = 0;
                         correctCount--;
+                        $('#score').text("Score: " + correctCount);
                     }
             }
         }
@@ -167,6 +174,7 @@ function onMouseUp() {
                     selectedPiece.colIndex == board[i].colIndex) {
                         correctCount++;
                         board[i].correct = 1;
+                        $('#score').text("Score: " + correctCount);
                     }
             }
     }
@@ -186,7 +194,6 @@ function getPressedPiece(loc) {
 
 function updateCanvas() {
     context.clearRect(0,0,canvas.width,canvas.height);
-    // context.drawImage(puzzleImg, pzlSize.x, pzlSize.y, pzlSize.width, pzlSize.height);
 
     context.strokeRect(pzlPosition.x, pzlPosition.y,
                 pzlSize.width, pzlSize.height);
